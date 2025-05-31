@@ -8,27 +8,29 @@ const ObjectDetection = ({ hfToken }) => {
   const [image, setImage] = useState(null);
   const [predictions, setPredictions] = useState([]);
   const [streamActive, setStreamActive] = useState(false);
+  const [cameraAvailable, setCameraAvailable] = useState(true);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const hf = new HfInference(hfToken);
 
-  // Iniciar cámara trasera
   const startCamera = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment' }, // Cámara trasera
+        video: { facingMode: 'environment' },
         audio: false,
       });
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
+        await videoRef.current.play();
         setStreamActive(true);
+        setCameraAvailable(true);
       }
     } catch (error) {
       console.error('Error al acceder a la cámara:', error);
+      setCameraAvailable(false);
     }
   };
 
-  // Detener cámara
   const stopCamera = () => {
     if (videoRef.current && videoRef.current.srcObject) {
       videoRef.current.srcObject.getTracks().forEach(track => track.stop());
@@ -37,11 +39,9 @@ const ObjectDetection = ({ hfToken }) => {
     setStreamActive(false);
   };
 
-  // Capturar imagen del video y hacer la detección
   const scanImage = async () => {
     if (!videoRef.current) return;
 
-    // Dibujar el frame actual en canvas
     const video = videoRef.current;
     const canvas = canvasRef.current;
     canvas.width = video.videoWidth;
@@ -49,7 +49,6 @@ const ObjectDetection = ({ hfToken }) => {
     const ctx = canvas.getContext('2d');
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    // Convertir canvas a blob para enviar al modelo
     canvas.toBlob(async (blob) => {
       if (!blob) return;
 
@@ -67,15 +66,14 @@ const ObjectDetection = ({ hfToken }) => {
     }, 'image/jpeg');
   };
 
-  // Restablecer estado
   const reset = () => {
     setImage(null);
     setPredictions([]);
     stopCamera();
   };
 
-  // Limpieza cuando el componente se desmonta
   useEffect(() => {
+    startCamera();
     return () => {
       stopCamera();
     };
@@ -106,22 +104,36 @@ const ObjectDetection = ({ hfToken }) => {
         <p>Arrastra y suelta una imagen aquí, o haz clic para seleccionar una</p>
       </div>
 
-      {!streamActive && (
-        <button onClick={startCamera} style={{ marginBottom: 10 }}>Abrir cámara trasera</button>
-      )}
-
-      {streamActive && (
-        <>
+      {/* Vista de la cámara o fallback */}
+      <div style={{ width: 200, height: 400, marginBottom: 10 }}>
+        {cameraAvailable && streamActive ? (
           <video
             ref={videoRef}
-            style={{ width: '100%', maxHeight: 400, marginBottom: 10 }}
+            style={{ width: '100%', height: '100%', borderRadius: 8 }}
             autoPlay
             playsInline
+            muted
           />
-          <button onClick={scanImage} style={{ marginRight: 10 }}>Scanear</button>
-          <button onClick={reset}>Restablecer</button>
-        </>
-      )}
+        ) : (
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              backgroundColor: '#eee',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 8,
+              color: '#888'
+            }}
+          >
+            Cámara no disponible
+          </div>
+        )}
+      </div>
+
+      <button onClick={scanImage} style={{ marginRight: 10 }}>📷 Escanear</button>
+      <button onClick={reset}>🔄 Restablecer</button>
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
@@ -131,14 +143,14 @@ const ObjectDetection = ({ hfToken }) => {
 
       {predictions.length > 0 && (
         <div>
-          <h3>Resultados:</h3>
+          <h3>♻️ Resultados de reciclaje:</h3>
           {predictions.map((pred, idx) => {
             const categoria = reciclajeMap[pred.label] || 'desconocido';
             return (
               <div key={idx}>
                 <strong>{pred.label}</strong> – {Math.round(pred.score * 100)}%
                 <br />
-                ♻️ Categoría: <strong>{categoria}</strong>
+                Categoría: <strong>{categoria}</strong>
               </div>
             );
           })}
