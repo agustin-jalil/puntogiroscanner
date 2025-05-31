@@ -1,0 +1,25 @@
+---
+const pasos = [
+    {
+        icon: "",
+        texto: "Descarga la app desde tu tienda favorita."
+    },
+    { texto: "Regístrate y personaliza tu perfil." },
+    { texto: "Agrega y organiza tus tareas diarias." },
+    { texto: "Recibe notificaciones y mantente al día." },
+    { texto: "Disfruta de una vida más organizada y productiva." }
+];
+---
+<!-- Bloque 3: Cómo Funciona -->
+<section id="bloque3" class="w-full py-16 flex flex-col items-center">
+  <h2 class="font-extrabold mb-8 text-white text-6xl mb-8">¿Cómo Funciona?</h2>
+  <ol class="list-decimal list-inside text-lg text-gray-700 space-y-4 w-full">
+    {pasos.map((paso) => (
+        <li class="bg-white/80 cursor-pointer rounded-lg shadow-md px-6 py-4 flex items-center gap-3 transition hover:bg-blue-100 hover:scale-105 font-semibold text-blue-900">
+            {paso.icon && paso.icon}
+            {paso.texto}
+        </li>
+    ))}
+
+  </ol>
+</section>

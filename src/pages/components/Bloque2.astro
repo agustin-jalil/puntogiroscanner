@@ -1,0 +1,65 @@
+---
+const caracteristicas = [
+  {
+    icono: "📱",
+    titulo: "Interfaz Intuitiva",
+    descripcion:
+      "Navega fácilmente gracias a un diseño pensado para el usuario.",
+  },
+  {
+    icono: "🔔",
+    titulo: "Notificaciones Inteligentes",
+    descripcion:
+      "Recibe recordatorios y alertas personalizadas para no olvidar nada importante.",
+  },
+  {
+    icono: "🔒",
+    titulo: "Seguridad Garantizada",
+    descripcion:
+      "Tus datos están protegidos con los más altos estándares de seguridad.",
+  },
+  {
+    icono: "📱",
+    titulo: "Interfaz Intuitiva",
+    descripcion:
+      "Navega fácilmente gracias a un diseño pensado para el usuario.",
+  },
+  {
+    icono: "🔔",
+    titulo: "Notificaciones Inteligentes",
+    descripcion:
+      "Recibe recordatorios y alertas personalizadas para no olvidar nada importante.",
+  },
+  {
+    icono: "🔒",
+    titulo: "Seguridad Garantizada",
+    descripcion:
+      "Tus datos están protegidos con los más altos estándares de seguridad.",
+  },
+];
+---
+
+<!-- Bloque 2: Características -->
+<section id="bloque2" class="w-full py-16 flex flex-col items-center">
+  <h2 class="text-3xl font-extrabold mb-8 text-white text-6xl">
+    Características Principales
+  </h2>
+  <div class="max-w-2xl mx-auto mb-10 text-center">
+    <p class="text-white font-medium text-2xl">
+      Esta aplicación está diseñada para facilitar la gestión y comunicación
+      entre los ciudadanos y la municipalidad, ofreciendo herramientas modernas,
+      seguras y fáciles de usar.
+    </p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+    {
+      caracteristicas.map(({ icono, titulo, descripcion }) => (
+        <div class="bg-blue-50 p-6 rounded-lg shadow-md flex flex-col items-center">
+          <span class="text-4xl mb-4">{icono}</span>
+          <h3 class="text-xl font-semibold mb-2">{titulo}</h3>
+          <p class="text-gray-600 text-center">{descripcion}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>

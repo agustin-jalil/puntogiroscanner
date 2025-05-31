@@ -1,0 +1,66 @@
+---
+const socialIcons = [
+  {
+    name: "Facebook",
+    url: "https://facebook.com/",
+    icon: "mdi:facebook",
+  },
+  {
+    name: "Twitter",
+    url: "https://twitter.com/",
+    icon: "mdi:twitter",
+  },
+  {
+    name: "Instagram",
+    url: "https://instagram.com/",
+    icon: "mdi:instagram",
+  },
+  {
+    name: "LinkedIn",
+    url: "https://linkedin.com/",
+    icon: "mdi:linkedin",
+  },
+  {
+    name: "YouTube",
+    url: "https://youtube.com/",
+    icon: "mdi:youtube",
+  },
+  {
+    name: "WhatsApp",
+    url: "https://wa.me/",
+    icon: "mdi:whatsapp",
+  },
+  {
+    name: "Telegram",
+    url: "https://telegram.org/",
+    icon: "mdi:telegram",
+  },
+];
+---
+
+<!-- Bloque 5: Contacto -->
+<section id="bloque5" class="w-full py-16 flex flex-col items-center">
+  <h2 class="text-3xl font-extrabold mb-8 text-white text-6xl mb-8">
+    Contáctanos
+  </h2>
+  <div
+    class="w-full grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-6 py-12"
+  >
+    {
+      socialIcons.map((icon) => (
+        <a
+          href={icon.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={icon.name}
+          class="flex flex-col items-center group transition-transform hover:scale-110"
+        >
+          <span class="text-6xl text-white">
+            <iconify-icon icon={icon.icon} />
+          </span>
+          <span class="mt-2 text-2xl font-bold text-white">{icon.name}</span>
+        </a>
+      ))
+    }
+  </div>
+</section>

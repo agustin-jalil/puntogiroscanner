@@ -1,0 +1,74 @@
+---
+const testimonios = [
+  {
+    gif: "https://i.giphy.com/tsX3YMWYzDPjAARfeg.webp",
+    mensaje:
+      "“AppCelular ha cambiado mi forma de organizarme. ¡Muy recomendada!”",
+    avatar: "/avatar-ana.png",
+    nombre: "Ana G.",
+    descripcion: "Vecina de la ciudad",
+  },
+  {
+    gif: "https://i.giphy.com/tsX3YMWYzDPjAARfeg.webp",
+    mensaje: "“Las notificaciones me ayudan a no olvidar nada. Es genial.”",
+    avatar: "/avatar-luis.png",
+    nombre: "Luis P.",
+    descripcion: "Comerciante local",
+  },
+  {
+    gif: "https://i.giphy.com/tsX3YMWYzDPjAARfeg.webp",
+    mensaje: "“Fácil de usar y muy útil para mi día a día.”",
+    avatar: "/avatar-maria.png",
+    nombre: "María S.",
+    descripcion: "Estudiante universitaria",
+  },
+  {
+    gif: "https://i.giphy.com/tsX3YMWYzDPjAARfeg.webp",
+    mensaje: "“Fácil de usar y muy útil para mi día a día.”",
+    avatar: "/avatar-maria.png",
+    nombre: "María S.",
+    descripcion: "Estudiante universitaria",
+  },
+  {
+    gif: "https://i.giphy.com/tsX3YMWYzDPjAARfeg.webp",
+    mensaje: "“Fácil de usar y muy útil para mi día a día.”",
+    avatar: "/avatar-maria.png",
+    nombre: "María S.",
+    descripcion: "Estudiante universitaria",
+  },
+];
+---
+
+<!-- Bloque 4: Testimonios -->
+<section id="bloque4" class="w-full py-16 flex flex-col items-center">
+  <h2 class="font-extrabold mb-8 text-white text-6xl mb-8">Testimonios</h2>
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-8 w-full">
+    {
+      testimonios.map((testimonio) => (
+        <div class="bg-black/20 rounded-2xl shadow-xl transform hover:scale-105 transition-transform duration-300 cursor-pointer text-white">
+          <div class="flex justify-center mb-4">
+            <img
+              src={testimonio.gif}
+              alt="Animación de reseña"
+              class="w-full h-full rounded-lg object-cover"
+            />
+          </div>
+          <p class=" mb-4 text-1xl  px-6 font-medium leading-relaxed">
+            {testimonio.mensaje}
+          </p>
+          <div class="flex items-center mt-4 px-6">
+            <img
+              src={testimonio.avatar}
+              alt={testimonio.nombre}
+              class="w-10 h-10 rounded-full mr-3 border-2 border-blue-300 object-cover"
+            />
+            <div>
+              <span class="block font-bold text-base">{testimonio.nombre}</span>
+              <span class=" text-sm px-2">{testimonio.descripcion}</span>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
