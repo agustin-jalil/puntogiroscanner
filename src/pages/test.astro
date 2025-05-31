@@ -1,7 +1,8 @@
 ---
-import ObjectDetection from "../app-ai/objectDetection"
+// src/pages/index.astro (o cualquier archivo Astro)
+import ObjectDetection from "../app-ai/objectDetection.jsx"
+
+const hfToken = import.meta.env.PUBLIC_HF_TOKEN;
 ---
 
-<ObjectDetection
-  client:only="react"  
-/>
+<ObjectDetection client:only="react" hfToken={hfToken} />
